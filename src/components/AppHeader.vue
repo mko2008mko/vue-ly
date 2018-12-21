@@ -1,11 +1,13 @@
 <template>
   <header>
     <!-- <span onClick={getLogout}>{username}</span> -->
+    <router-link to="/login">
     <img
       class="login"
       src="//leyouimage.leyou.com.cn/mleyou/mall/images/home.png"
       alt=""
     />
+    </router-link>
 
   </header>
 </template>

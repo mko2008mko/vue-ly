@@ -1,26 +1,17 @@
 <template>
   <div id="app">
-    <AppHeader />
+    <!-- <AppHeader />
     <ScrollNavBar/>
     <div id="nav">
-      <!-- <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>|
-      <router-link to="/test">Test</router-link>|
-      <router-link to="/tswiper">Swiper</router-link>|
-      <router-link to="/tstabr">Tabr</router-link> -->
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>
 <script>
-import AppHeader from "./components/AppHeader.vue";
-import ScrollNavBar from "./components/ScrollNavBar";
+
 
 export default {
-  components: {
-    AppHeader,
-    ScrollNavBar
-  }
+
 };
 </script>
 
