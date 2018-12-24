@@ -18,7 +18,10 @@
           placeholder="输入验证码"
           v-model="vcode"
         />
-        <cube-button :primary="true" @click="handleSubmitClick">提交</cube-button>
+        <cube-button
+          :primary="true"
+          @click="handleSubmitClick"
+        >提交</cube-button>
 
         <div>
           <span class="left valign">注册</span>
@@ -32,11 +35,12 @@
       </div>
     </div>
 
-    登陆页面
+    {{userData}}
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import AppTopBar from "../components/AppTopBar";
 
 export default {
@@ -54,10 +58,38 @@ export default {
   props: {
     title: String
   },
-  methods:{
-      handleSubmitClick(){
-          console.log(this.phone,this.pwd,this.vcode);
+  methods: {
+    ...mapActions("users", ["getLogin"]),
+    handleSubmitClick() {
+      console.log(this.phone, this.pwd, this.vcode);
+
+      if (!this.phone) {
+        this.$createToast({
+          txt: "请输入用户名",
+          type: "txt"
+        }).show();
+      } else if (!this.pwd) {
+        this.$createToast({
+          txt: "请输入密码",
+          type: "txt"
+        }).show();
+      } else if (!this.vcode) {
+        this.$createToast({
+          txt: "请输入验证码",
+          type: "txt"
+        }).show();
+      } else {
+        this.getLogin({ phone: this.phone, pwd: this.pwd, vcode: this.vcode });
       }
+    }
+  },
+  computed: mapState({
+    userData: state => state.users.userData
+  }),
+  updated() {
+    if (this.userData) {
+      this.$router.go(-1);
+    }
   }
 };
 </script>

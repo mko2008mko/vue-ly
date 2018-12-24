@@ -6,11 +6,13 @@
       :label="item.title"
     />
   </cube-scroll-nav> -->
-  <cube-scroll-nav-bar
-    :current="current"
-    :labels="tabs"
-    @change="changeHandler"
-  />
+  <nav ref="navwrapper">
+    <cube-scroll-nav-bar
+      :current="current"
+      :labels="tabs"
+      @change="changeHandler"
+    />
+  </nav>
 </template>
 
 <script>
@@ -59,9 +61,46 @@ export default {
           break;
       }
     }
+  },
+  mounted() {
+    const wrapper = this.$refs.navwrapper;
+    console.log(wrapper);
+    let timeId;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (timeId) {
+          clearTimeout(timeId);
+        }
+
+        timeId = setTimeout(() => {
+          let btop =
+            document.body.scrollTop || document.documentElement.scrollTop;
+          const titleTop = wrapper.offsetTop;
+
+          // console.log(btop, titleTop);
+
+          if (btop > titleTop) {
+            wrapper.className = "clearfix fix";
+          } else {
+            wrapper.className = "clearfix";
+          }
+        }, 8);
+      },
+      false
+    );
   }
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+nav {
+  z-index: 1;
+}
+.fix {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 </style>
+

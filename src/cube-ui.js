@@ -1,4 +1,8 @@
 import Vue from 'vue'
-import Cube from 'cube-ui'
+import Cube ,{ Toast, createAPI,Dialog }from 'cube-ui'
 
-Vue.use(Cube)
+Vue.use(Cube,Toast,Dialog)
+
+// Vue.use(Toast);
+createAPI(Vue, Toast, ["click"], true);
+createAPI(Vue, Dialog, ["confirm","cancel"], true);
