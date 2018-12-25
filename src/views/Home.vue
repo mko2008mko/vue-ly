@@ -9,10 +9,12 @@
           v-for="item in homeData.bannerList"
           :key="item.id"
         >
+        <router-link :to="{ name: 'Cdetail', params: { id: 123 }}">
           <img
             :src="item.imgUrl"
             alt=""
           />
+          </router-link>
         </cube-slide-item>
       </cube-slide>
       <HoemCategory :data="homeData.categoryList1" />

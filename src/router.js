@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login';
 import Index1 from './views/Index';
 import Register from './views/Register';
+import Cdetail from './views/Cdetail';
 
 Vue.use(Router);
 
@@ -60,6 +61,12 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/cdetail/:id',
+      name: 'Cdetail',
+      component: Cdetail,
+      props:true
     }
   ]
 });
