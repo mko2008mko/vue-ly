@@ -7,12 +7,14 @@
     />
     <span>{{title}}</span>
     <img
-    @click="handleMenuClick"
+      @click="handleMenuClick"
       class="right"
       src="../assets/menu.png"
       alt=""
     />
-    <TopLefNavPop v-if="isShow" />
+    <transition name="fade">
+      <TopLefNavPop v-if="isShow" />
+    </transition>
 
   </div>
 </template>
@@ -45,6 +47,14 @@ export default {
 </script>
 
 <style lang="less">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .app-topbar-wrapper {
   background: #f6f4f4;
   padding: 0.2rem 0;

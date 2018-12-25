@@ -24,8 +24,10 @@
         >提交</cube-button>
 
         <div>
-          <span class="left valign">注册</span>
-          <span class="right valign">></span>
+          <router-link to="/register">
+            <span class="left valign">注册</span>
+            <span class="right valign">></span>
+          </router-link>
         </div>
 
         <div>

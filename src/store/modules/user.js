@@ -1,12 +1,20 @@
 import axios from 'axios';
 
 const state = {
-  userData: null
+  userData: null,
+  pcode: ''
 };
 
 const getters = {
   getUserName(state) {
-    return state.userData.username;
+    if (state.userData) {
+      return state.userData.username;
+    } else {
+      return null;
+    }
+  },
+  getCode(state) {
+    return state.pcode;
   }
 };
 
@@ -26,6 +34,28 @@ const actions = {
     setTimeout(() => {
       commit('getLogoutSuccess');
     }, 1000);
+  },
+  getRegister({ commit }, register) {
+    console.log(register);
+    axios
+      .get('/api/user.json')
+      .then(res => {
+        commit('getRegisterSuccess', res.data.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  },
+  getPcCode({ commit }, phone) {
+    console.log(phone);
+    axios
+      .get('/api/user.json')
+      .then(res => {
+        commit('getPCSuccess', res.data.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 };
 
@@ -35,6 +65,12 @@ const mutations = {
   },
   getLogoutSuccess(state) {
     state.userData = null;
+  },
+  getRegisterSuccess(state, data) {
+    state.userData = data;
+  },
+  getPCSuccess(state, data) {
+    state.pcode = data.pcode;
   }
 };
 
