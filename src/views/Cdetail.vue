@@ -25,34 +25,114 @@
         <p>
           积分：可得<span class="span_yellow">205</span>积分
         </p>
+        <div :style="{ marginTop: 12 }">
+          <p>
+            送至:
+            <span :style="{ marginLeft: 20 }">{{city1 ? city1 : '请选择'}}</span>
+            <span>{{city2 ? city2 : '请选择'}}</span>
+            <span :style="{ color: '#f2622d' }">有货</span>
+          </p>
+          <CitySelect
+            title="xxxx"
+            :data="cdetailData.cityList"
+            v-on:handelCityChange="handelCityChange"
+            type="0"
+          />
+          <CitySelect
+            :data="city2Data"
+            v-on:handelCityChange="handelCityChange"
+            type="1"
+          />
+        </div>
+        <div :style="{ marginTop: 12 }" />
+        <Count v-on:handleCountChange="handleCountChange" />
+
+        <div class="cdetail-2btn-wrapper">
+          <cube-button>分享</cube-button>
+          <cube-button>关注</cube-button>
+        </div>
+
+        <div class="cdetail-comment-wrapper">
+          <div class="start-wrapper">
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+          <p>
+            已有<span :style="{ color: '#f2622d' }">333423</span>人评价>
+          </p>
+        </div>
+        <div
+          class="cdetail-cdesc-wrapper"
+          v-html="cdetailData.commodityDesc"
+        />
+        <SegmentedControl v-on:handleSelectChange="handleSelectChange" />
+        <ImageDesc v-if="!selectIndex" />
+        <AfterSale v-else-if="selectIndex===1" />
+        <HowBuy v-else />
+        <div class="cdetail-bot-place" />
       </div>
-      <CitySelect
-        title="xxxx"
-        :data="cdetailData.cityList"
-        v-on:handelCityChange="handelCityChange"
-      />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import AppTopBar from "../components/AppTopBar";
 import CitySelect from "../components/CitySelect";
+import Count from "../components/Count";
+import SegmentedControl from "../components/SegmentedControl";
+import AfterSale from "./AfterSale";
+import HowBuy from "./HowBuy";
+import ImageDesc from "./ImageDesc";
 export default {
   name: "Cdetail",
   components: {
     AppTopBar,
-    CitySelect
+    CitySelect,
+    Count,
+    SegmentedControl,
+    AfterSale,
+    HowBuy,
+    ImageDesc
   },
   props: ["id"],
-  computed: mapGetters("cdetails", {
-    cdetailData: "getCDData"
-  }),
+  data() {
+    return {
+      selectIndex: 0
+    };
+  },
+  computed: {
+    ...mapGetters("cdetails", {
+      cdetailData: "getCDData",
+      city2Data: "getCity2Data"
+    }),
+    ...mapState({
+      city1: state => state.cdetails.city1,
+      city2: state => state.cdetails.city2
+    })
+  },
   methods: {
-    ...mapActions("cdetails", ["getCDetailData"]),
-    handelCityChange(item) {
-      console.log({...item});
+    ...mapActions("cdetails", [
+      "getCDetailData",
+      "setCity",
+      "getCity2Data",
+      "modifyCount"
+    ]),
+    handelCityChange(item, type) {
+      this.setCity({ type: type, ...item });
+      if (type) {
+        this.getCity2Data(item.addrid);
+      }
+    },
+    handleCountChange(count) {
+      this.modifyCount(count);
+    },
+    handleSelectChange(selectIndex) {
+      this.selectIndex = selectIndex;
+      console.log(selectIndex);
     }
   },
   created() {
@@ -99,14 +179,14 @@ export default {
 
   .cdetail-2btn-wrapper {
     display: flex;
-    .am-button {
+    .cube-btn {
       margin: 0.2rem auto;
       width: 40%;
       background-color: #f2622d;
       color: #fff;
     }
 
-    .am-button-active {
+    .cube-btn-active {
       background-color: #fff;
     }
   }
@@ -134,14 +214,13 @@ export default {
   }
 
   .cdetail-cdesc-wrapper {
-    margin-top: 20px;
-    margin-bottom: 15px;
-    p {
-      color: #535353;
-      font-weight: normal;
-      line-height: 0.38rem;
-      font-size: 0.23rem;
-    }
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+
+    color: #535353;
+    font-weight: normal;
+    line-height: 0.38rem;
+    font-size: 12px;
   }
 }
 

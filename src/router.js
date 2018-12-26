@@ -6,6 +6,7 @@ import Index1 from './views/Index';
 import Register from './views/Register';
 import Cdetail from './views/Cdetail';
 
+
 Vue.use(Router);
 
 export default new Router({
@@ -66,7 +67,21 @@ export default new Router({
       path: '/cdetail/:id',
       name: 'Cdetail',
       component: Cdetail,
-      props:true
+      props:true,
+      // children:[
+      //   {
+      //     path:'/cdetail/AfterSale',
+      //     component:AfterSale
+      //   },
+      //   {
+      //     path:'/cdetail/HowBuy',
+      //     component:HowBuy
+      //   },
+      //   {
+      //     path:'/cdetail',
+      //     component:ImageDesc
+      //   }
+      // ]
     }
   ]
 });

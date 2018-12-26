@@ -12,7 +12,7 @@
         <li
           v-for="item in data"
           :key="item.addrid"
-          @click="$emit('handelCityChange',item)"
+          @click="handleItemClick(item)"
         >
           <span>{{item.addrname}}</span>
         </li>
@@ -27,7 +27,8 @@ export default {
   name: "CitySelect",
   props: {
     data: Array,
-    title:String
+    title: String,
+    type: String
   },
   data() {
     return {
@@ -37,6 +38,10 @@ export default {
   methods: {
     handleBBtnClick() {
       this.isShow = !this.isShow;
+    },
+    handleItemClick(item) {
+      this.isShow = false;
+      this.$emit("handelCityChange", item, this.type);
     }
   }
 };
