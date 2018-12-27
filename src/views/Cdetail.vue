@@ -1,6 +1,7 @@
 <template>
   <div>
     <AppTopBar title="爱他美三段幼儿配方奶粉" />
+    <AppBotShopcar :commodity="commodity"/>
     <div v-if="cdetailData">
       <cube-slide :data="cdetailData.bannerList">
         <cube-slide-item
@@ -87,6 +88,7 @@ import SegmentedControl from "../components/SegmentedControl";
 import AfterSale from "./AfterSale";
 import HowBuy from "./HowBuy";
 import ImageDesc from "./ImageDesc";
+import AppBotShopcar from "../components/AppBotShopcar";
 export default {
   name: "Cdetail",
   components: {
@@ -96,7 +98,8 @@ export default {
     SegmentedControl,
     AfterSale,
     HowBuy,
-    ImageDesc
+    ImageDesc,
+    AppBotShopcar
   },
   props: ["id"],
   data() {
@@ -107,7 +110,8 @@ export default {
   computed: {
     ...mapGetters("cdetails", {
       cdetailData: "getCDData",
-      city2Data: "getCity2Data"
+      city2Data: "getCity2Data",
+      commodity: "getCommodity"
     }),
     ...mapState({
       city1: state => state.cdetails.city1,

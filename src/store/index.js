@@ -6,6 +6,7 @@ import users from './modules/user';
 import nfnbs from './modules/nfnb';
 import qqgs from './modules/qqg';
 import cdetails from './modules/cdetail';
+import shopcars from './modules/shopcar';
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     users,
     nfnbs,
     qqgs,
-    cdetails
+    cdetails,
+    shopcars
   }
 });

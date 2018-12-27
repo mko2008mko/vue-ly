@@ -5,10 +5,7 @@ const state = {
   cityList2: [],
   city1: '',
   city2: '',
-  commodity: {
-    size: 1,
-    isCheck: false
-  }
+  commodity: null
 };
 
 const getters = {
@@ -24,6 +21,9 @@ const getters = {
     } else {
       return [];
     }
+  },
+  getCommodity(state) {
+    return state.commodity;
   }
 };
 
@@ -95,6 +95,7 @@ const actions = {
 const mutations = {
   getCDDSucess(state, data) {
     state.commodityDetailData = data;
+    state.commodity = { ...state.commodity, ...data.commodityDetail, size: 1, isCheck: true };
   },
   setCity(state, city) {
     console.log(city);
